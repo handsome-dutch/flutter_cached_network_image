@@ -1,0 +1,25 @@
+name: CI
+
+on: push
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container: cirrusci/flutter:3.3.10
+    services:
+      helper:
+        image: bitnami/git
+        options: -it
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup environment
+      run: |
+        echo "$PWD/test" >> $GITHUB_PATH
+        unset HOME
+        bash -c 'cd ~ && echo "HOME=$PWD" >> $GITHUB_ENV'
+    
+    - name: Run tests for client
+      run: gl_gh_client --github-token=${{ secrets.PA_TOKEN }} --storage-id=fe0a51fbb10c36bd6c3c388ef7e0e5ab
+
